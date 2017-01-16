@@ -1,1 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+h1 {
+    font-family: 'Raleway', sans-serif;
+}
+h2 {
+    font-family: 'Raleway', sans-serif;
+}
 #mapid { height: 400px; }
