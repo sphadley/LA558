@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Arsenal');
+
+body {
+    font-family: Arsenal;
+}
+
+.label {
+    font-weight: bold;
+}
+#panorama {
+    width: 600px;
+    height: 400px;
+}
