@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Arsenal');
+body{
+    font-family: Arsenal;
+}
+
+.label {
+    font-weight: bold;
+}
+#panorama {
+    width: 600px;
+    height: 400px;
+    display:inline-block;
+    vertical-align: text-top;
+    margin: 10px;
+    padding:20px;
+}
+.tile {
+    text-align: top; 
+    width: 600px;
+    height:400px;
+    background-color: #f9f9f9;
+    padding:20px;
+    vertical-align: text-top;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.1);
+    margin: 10px;
+    display:inline-block;
+    font-size: 1.5em;
+    overflow: hidden;
+
+}
+.tile img {
+    width: 580px;
+    height: 380px;
+}
+#major {
+}
+.footer {
+    width:100%;
+    height:3em;
+    background-color:Gray;
+    color:White;
+    margin-top:40px;
+}

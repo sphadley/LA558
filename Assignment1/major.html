@@ -3,33 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" type="text/css" href="a1.css">
-<link rel="stylesheet" href="pannellum.css"/>
-<script type="text/javascript" src="pannellum.js"></script>
+<link rel="stylesheet" type="text/css" href="css/a1.css">
+<link rel="stylesheet" href="css/pannellum.css"/>
+<script type="text/javascript" src="js/pannellum.js"></script>
 <title>Assignment 1</title></head>
 <body>
-<h1>Assignment 1</h1>
-<div id="major">
-<h2>Mt. Major</h2>
-</div>
-<div id="panorama"></div>
-<script>
-    pannellum.viewer('panorama', {
-        "type": "equirectangular",
-        "panorama": "pano.jpg",
-        "autoLoad": true
-    });
-</script>
-<span>
-Mount Major is a mountain located in Alton, New Hampshire, south of Lake Winnipesaukee and northeast of Straightback Mountain of the Belknap Range.
-The scenic, rocky summit is a popular hiking destination, accessible by multiple trails including the Mount Major Trail, the Brook Trail, and the Boulder Loop.
-The north, east and south faces of Mount Major drain into Lake Winnipesaukee, thence via the Winnipesaukee River into the Merrimack River and finally into the Gulf of Maine in Massachusetts. The west ridge of Mount Major rises only 186 feet (57 m) feet above the col with the higher Straightback Mountain.
-</span>
-
-
-<div id="citation"> 
-Material provided by:
+    <div id="major">
+        <h1>Assignment 1</h1>
+        <h2>Mt. Major</h2>
+        <div id="panorama" class="tile"></div>
+        <script>
+            pannellum.viewer('panorama', {
+                "type": "equirectangular",
+                "panorama": "img/pano.jpg",
+                "autoLoad": true
+            });
+        </script>
+        <div class="tile">
+            Mount Major is a mountain located in Alton, New Hampshire, south of Lake Winnipesaukee and northeast of Straightback Mountain of the Belknap Range.
+            The scenic, rocky summit is a popular hiking destination, accessible by multiple trails including the Mount Major Trail, the Brook Trail, and the Boulder Loop.
+            The north, east and south faces of Mount Major drain into Lake Winnipesaukee, thence via the Winnipesaukee River into the Merrimack River and finally into the Gulf of Maine in Massachusetts. The west ridge of Mount Major rises only 186 feet (57 m) feet above the col with the higher Straightback Mountain.
+        </div>
+        <div class="tile">
+            <img src="img/major1.jpg"/>           
+        </div>
+        <div class="tile">
+            <img src="img/major2.jpg"/>           
+        </div>
+        <div class="tile">
+            <img src="img/major3.jpg"/>           
+        </div>
+        <div class="footer"> 
+Informational material provided by:
 Wikipedia contributors. "Mount Major." Wikipedia, The Free Encyclopedia. Wikipedia, The Free Encyclopedia, 10 Jul. 2016. Web. 23 Jan. 2017.
-<div>
+        </div>
+    </div>
 </body>
 </html>
