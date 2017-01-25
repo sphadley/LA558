@@ -4,7 +4,7 @@ body{
 }
 
 nav {
-    background-color: #f0e68c;
+    background: rgb(243,245,265);
     display: block; 
     overflow: hidden;
     padding: 1em 0em 1em 0em;
@@ -12,10 +12,11 @@ nav {
 nav a {
     padding: 1em;
     margin: 0em 0em 0em 0em;
+    color:black;
 }
 
 nav a:hover {
-    background-color: #e0d57b;
+    background: rgb(233,235,255);
     margin: 0em 0em 0em 0em;
     color:black;
 }
@@ -25,7 +26,7 @@ nav a:visited {
 
 nav span {
     padding: 1em;
-    background-color: #e0d57b;
+    background: rgb(233,235,255);
     margin: 0em 0em 0em 0em;
 }
 
@@ -46,7 +47,6 @@ nav span {
     text-align: top; 
     width: 600px;
     height:400px;
-    background-color: #f9f9f9;
     padding:20px;
     vertical-align: text-top;
     box-shadow: 5px 10px 10px rgba(0,0,0,0.1);
@@ -72,4 +72,12 @@ nav span {
 #map {
     width:100%;
     height:auto;
+}
+
+.banner {
+    padding: 0.8em;
+    background-image:url(../images/banner.png);
+    background-position: right; 
+    background-repeat: no-repeat;
+    
 }
