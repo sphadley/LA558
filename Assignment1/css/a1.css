@@ -3,6 +3,33 @@ body{
     font-family: Arsenal;
 }
 
+nav {
+    background-color: #f0e68c;
+    display: block; 
+    overflow: hidden;
+    padding: 1em 0em 1em 0em;
+}
+nav a {
+    padding: 1em;
+    margin: 0em 0em 0em 0em;
+}
+
+nav a:hover {
+    background-color: #e0d57b;
+    margin: 0em 0em 0em 0em;
+    color:black;
+}
+nav a:visited {
+    color:black;
+} 
+
+nav span {
+    padding: 1em;
+    background-color: #e0d57b;
+    margin: 0em 0em 0em 0em;
+}
+
+
 .label {
     font-weight: bold;
 }
@@ -41,4 +68,8 @@ body{
     background-color:Gray;
     color:White;
     margin-top:40px;
+}
+#map {
+    width:100%;
+    height:auto;
 }
