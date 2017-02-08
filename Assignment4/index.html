@@ -82,11 +82,11 @@
             var en = '{"iv":"DKfFCHFekKcCMjTpay+tIg==","v":1,"iter":1000,"ks":128,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"kK+ungiKfDA=","ct":"Xo8m2QLfqhjeM6qQG4gAT/khTtEZDRm2Juxbp6qPtIGO4U+aQ9l/0Q=="}';
             var pass = $("#password").val();
             var apikey = sjcl.decrypt(pass,en);
-            $.get( "http://api.brewerydb.com/v2/locations", 
+            $.get( "https://api.brewerydb.com/v2/locations", 
                 {key: apikey, region: $("#state").val(), locationType: "micro, macro" }).done(function(data) {
                     for(var loc in data.data)
                     {
-                        $.get("http://api.brewerydb.com/v2/brewery/" + data.data[loc].breweryId,
+                        $.get("https://api.brewerydb.com/v2/brewery/" + data.data[loc].breweryId,
                         {key: apikey}).done(function(brewer) {
                                 $("#output").append('<image class="brewerLogo" src="' + brewer.data.images.large + '"></image>');
                         });
