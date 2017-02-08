@@ -4,13 +4,21 @@
     <title>
         Assignment 4
     </title>
-    <script src="js/sjcl.js"></script>
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <link rel="stylesheet" href="js/jquery-ui-1.12.1.custom/jquery-ui.css">
-    <link rel="stylesheet" href="js/jquery-ui-1.12.1.custom/jquery-ui.theme.css">
-    <script src="js/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    <script src="../classes/sjcl.js"></script>
+    <script src="../classes/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="../classes/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" href="../classes/jquery-ui-1.12.1.custom/jquery-ui.theme.css">
+    <script src="../classes/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
     <style>
+        .logoBox {
+            padding: 5px;
+            text-align: center;
+            font-family:serif;
+            font-size: 15px;
+        }
         .brewerLogo {
+            display: block;
+            margin: auto;
             width: 50px;
         }
     </style>
@@ -72,6 +80,12 @@
     password:
     <input id="password"  type="password" />
     <button id="begin">Begin</button><br>
+    <input type="radio" name="font" value="serif" checked="checked"> Serif </input>
+    <input type="radio" name="font" value="sans-serif"> Sans Serif </input> <br>
+    
+    <input type="radio" name="fontsize" value="15px" checked="checked"> 15px </input>
+    <input type="radio" name="fontsize" value="25px" > 25px </input>
+    <input type="radio" name="fontsize" value="35px" > 35px </input> <br>
     image size:
     <div id="slider" ></div>
     <div id="output" />
@@ -88,7 +102,10 @@
                     {
                         $.get("https://api.brewerydb.com/v2/brewery/" + data.data[loc].breweryId,
                         {key: apikey}).done(function(brewer) {
-                                $("#output").append('<image class="brewerLogo" src="' + brewer.data.images.large + '"></image>');
+                            if(brewer.data.images != null)
+                            {
+                                $("#output").append('<div class="logoBox" > <img class="brewerLogo" src="' + brewer.data.images.large + '"/>'+ brewer.data.name+ '</div>');
+                            }
                         });
                     }
                                                             //$("#output").html(brewIds);
@@ -97,6 +114,16 @@
         }
         $("#begin").click(function() {
             getBreweries()});
+        $("input:radio[name=font]").click(function() {
+            var value = $(this).val();
+            $(".logoBox").css({fontFamily: value});
+        });
+
+        $("input:radio[name=fontsize]").click(function() {
+            var value = $(this).val();
+            $(".logoBox").css({fontSize: value});
+        });
+
         $(function() {
             $( "#slider" ).slider({min:50, max:500}).on( "slidechange", function( event, ui ) 
             {
