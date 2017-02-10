@@ -1,0 +1,161 @@
+<html>
+<!DOCTYPE HTML>
+<head>
+    <title>
+        Assignment 4
+    </title>
+    <script src="../classes/sjcl.js"></script>
+    <script src="../classes/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="../classes/jquery-ui-1.12.1.custom/jquery-ui.css">
+    <link rel="stylesheet" href="../classes/jquery-ui-1.12.1.custom/jquery-ui.theme.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="../classes/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    </head>
+<body>
+    state:
+    <select id="state" value="Iowa" >
+        <option value="Alabama">Alabama</option>
+        <option value="Alaska">Alaska</option>
+        <option value="Arizona">Arizona</option>
+        <option value="Arkansas">Arkansas</option>
+        <option value="California">California</option>
+        <option value="Colorado">Colorado</option>
+        <option value="Connecticut">Connecticut</option>
+        <option value="Delaware">Delaware</option>
+        <option value="Florida">Florida</option>
+        <option value="Georgia">Georgia</option>
+        <option value="Hawaii">Hawaii</option>
+        <option value="Idaho">Idaho</option>
+        <option value="Illinois">Illinois</option>
+        <option value="Indiana">Indiana</option>
+        <option value="Iowa">Iowa</option>
+        <option value="Kansas">Kansas</option>
+        <option value="Kentucky">Kentucky</option>
+        <option value="Louisiana">Louisiana</option>
+        <option value="Maine">Maine</option>
+        <option value="Maryland">Maryland</option>
+        <option value="Massachusetts">Massachusetts</option>
+        <option value="Michigan">Michigan</option>
+        <option value="Minnesota">Minnesota</option>
+        <option value="Mississippi">Mississippi</option>
+        <option value="Missouri">Missouri</option>
+        <option value="Montana">Montana</option>
+        <option value="Nebraska">Nebraska</option>
+        <option value="Nevada">Nevada</option>
+        <option value="New ">New Hampshire</option>
+        <option value="New ">New Jersey</option>
+        <option value="New ">New Mexico</option>
+        <option value="New ">New York</option>
+        <option value="North ">North Carolina</option>
+        <option value="North ">North Dakota</option>
+        <option value="Ohio">Ohio</option>
+        <option value="Oklahoma">Oklahoma</option>
+        <option value="Oregon">Oregon</option>
+        <option value="Pennsylvania">Pennsylvania</option>
+        <option value="Rhode ">Rhode Island</option>
+        <option value="South ">South Carolina</option>
+        <option value="South ">South Dakota</option>
+        <option value="Tennessee">Tennessee</option>
+        <option value="Texas">Texas</option>
+        <option value="Utah">Utah</option>
+        <option value="Vermont">Vermont</option>
+        <option value="Virginia">Virginia</option>
+        <option value="Washington">Washington</option>
+        <option value="West ">West Virginia</option>
+        <option value="Wisconsin">Wisconsin</option>
+        <option value="Wyoming">Wyoming</option>
+    </select>
+    password:
+    <input id="password"  type="password" />
+    <button id="begin">Begin</button><br>
+    <input type="radio" name="font" value="serif" checked="checked"> Serif </input>
+    <input type="radio" name="font" value="sans-serif"> Sans Serif </input> <br>
+    
+    <input type="radio" name="fontsize" value="15px" checked="checked"> 15px </input>
+    <input type="radio" name="fontsize" value="25px" > 25px </input>
+    <input type="radio" name="fontsize" value="35px" > 35px </input> <br>
+    image size:
+    <div id="slider" ></div>
+    <div id="map" ></div>
+    <div id="output"></div >
+    <script>
+        var Markers = new Array();
+        var Map;
+        
+        function fitToBounds() {
+            var bounds = new google.maps.LatLngBounds();
+            for (var m in Markers) 
+            {
+                bounds.extend(Markers[m].getPosition());
+            }
+            Map.fitBounds(bounds);
+        }
+
+        function getBreweries()
+        {
+            for(var m in Markers)
+            {
+                Markers[m].setMap(null);
+            }
+            Markers = [];
+            $("#output").empty();
+            var en = '{"iv":"DKfFCHFekKcCMjTpay+tIg==","v":1,"iter":1000,"ks":128,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"kK+ungiKfDA=","ct":"Xo8m2QLfqhjeM6qQG4gAT/khTtEZDRm2Juxbp6qPtIGO4U+aQ9l/0Q=="}';
+            var pass = $("#password").val();
+            var apikey = sjcl.decrypt(pass,en);
+            $.get( "https://api.brewerydb.com/v2/locations", 
+                {key: apikey, region: $("#state").val(), locationType: "micro, macro" }).done(function(data) {
+                    for(var loc in data.data)
+                    {
+                        $.get("https://api.brewerydb.com/v2/brewery/" + data.data[loc].breweryId,
+                        {key: apikey, withLocations:'Y'}).done(function(brewer) {
+                            if(brewer.data.images != null)
+                            {
+                                $("#output").append('<div class="logoBox" > <img class="brewerLogo" src="' + brewer.data.images.large + '"/>'+ brewer.data.name+ '</div>');
+                                Markers.push(new google.maps.Marker({
+                                    position: {lat: brewer.data.locations[0].latitude, 
+                                                lng: brewer.data.locations[0].longitude},
+                                    map:Map,
+                                    title:brewer.data.name 
+                                }));
+                                fitToBounds();
+                            }
+                        });
+                    }
+                                                            //$("#output").html(brewIds);
+                 });
+
+        }
+        $("#begin").click(function() {
+            getBreweries()});
+        $("input:radio[name=font]").click(function() {
+            var value = $(this).val();
+            $(".logoBox").css({fontFamily: value});
+        });
+
+        $("input:radio[name=fontsize]").click(function() {
+            var value = $(this).val();
+            $(".logoBox").css({fontSize: value});
+        });
+
+        $(function() {
+            $( "#slider" ).slider({min:50, max:500}).on( "slidechange", function( event, ui ) 
+            {
+                $(".brewerLogo").css({width: ui.value+"px"});
+            });
+        });
+
+        function initMap() {
+            var uluru = {lat: 43.444055, lng: -93.220486};
+            Map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: uluru
+            });
+            
+        }
+                
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq9BzYJbmdgg4lweRQiSqdKG2LqX6q_TI&callback=initMap">
+    </script>
+</body>
+</html>

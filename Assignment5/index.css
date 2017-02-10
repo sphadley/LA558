@@ -1,0 +1,20 @@
+#map {
+    height: 400px;
+    width: 100%;
+}
+#output {
+    min-height:100px;
+    width: 100%;
+}
+.logoBox {
+    padding: 5px;
+    text-align: center;
+    font-family:serif;
+    font-size: 15px;
+}
+.brewerLogo {
+    display: block;
+    margin: auto;
+    width: 50px;
+}
+
