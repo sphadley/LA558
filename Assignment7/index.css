@@ -1,0 +1,32 @@
+H3 {
+    color:red;
+    padding:0;
+    margin:0;
+}
+
+H5 {
+    color:red;
+    padding:0;
+    margin:0;
+}
+
+#mapdiv {
+    position: absolute;
+    top:0;
+    left:150px
+}
+
+#mapdiv img {
+    position: absolute;
+    top: 0;
+    left:0;
+}
+
+.mapImg {
+    width: 800px;
+    width: 600px;
+}
+
+#menu {
+    display: inline-block;
+}
