@@ -1,0 +1,25 @@
+H3 {
+    color:red;
+    padding:0;
+    margin:0;
+}
+
+H5 {
+    color:red;
+    padding:0;
+    margin:0;
+}
+
+#map {
+    position: absolute;
+    top:0;
+    left:150px
+    background-color:lime;
+    width: 1024px;
+    height: 800px;
+}
+
+#menu {
+    display: inline-block;
+    background-color:pink;
+}
