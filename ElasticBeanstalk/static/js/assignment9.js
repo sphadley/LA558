@@ -19,11 +19,12 @@ function getBreweries()
     Markers = [];
     $("#output").empty();
     var en = '{"iv":"DKfFCHFekKcCMjTpay+tIg==","v":1,"iter":1000,"ks":128,"ts":64,"mode":"ccm","adata":"","cipher":"aes","salt":"kK+ungiKfDA=","ct":"Xo8m2QLfqhjeM6qQG4gAT/khTtEZDRm2Juxbp6qPtIGO4U+aQ9l/0Q=="}';
-    $.get( "http://la558.xprtnk47cj.us-east-1.elasticbeanstalk.com/bdb/v2/locations", 
+    var pass = $("#password").val();
+    $.get( "bdb/v2/locations", 
         { region: $("#state").val(), locationType: "micro, macro" }).done(function(data) {
             for(var loc in data.data)
             {
-                $.get("http://la558.xprtnk47cj.us-east-1.elasticbeanstalk.com/bdb/v2/brewery/" + data.data[loc].breweryId,
+                $.get("bdb/v2/brewery/" + data.data[loc].breweryId,
                 { withLocations:'Y'}).done(function(brewer) {
                     if(brewer.data.images != null)
                     {
