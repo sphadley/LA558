@@ -1,0 +1,17 @@
+branch-defaults:
+  default:
+    environment: la558
+    group_suffix: null
+global:
+  application_name: la558
+  branch: null
+  default_ec2_keyname: null
+  default_platform: python2.7
+  default_region: us-east-1
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: null
+  repository: null
+  sc: null
+  workspace_type: Application
