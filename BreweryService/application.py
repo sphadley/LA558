@@ -23,7 +23,7 @@ def proxy_other(other):
     try:
         with open("brewery.pass", 'r') as file:
             apikey = file.readline()
-            print(brewhost +'/'+ other + '?key=' + apikey  + "&" + request.query_string.decode('utf-8'))
+            #print(brewhost +'/'+ other + '?key=' + apikey  + "&" + request.query_string.decode('utf-8'))
             r = requests.get(brewhost +'/'+ other + '?key=' + apikey  + "&" + request.query_string.decode('utf-8'))
             return Response(r.content, mimetype='text/json')
     except IOError:
