@@ -1,10 +1,9 @@
 #map {
-    height: 400px;
+    height: 600px;
     width: 100%;
 }
-#output {
-    min-height:100px;
-    width: 100%;
+#bdb {
+    height:50px;
 }
 .logoBox {
     padding: 5px;
