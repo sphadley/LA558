@@ -4,7 +4,7 @@ import requests
 
 application = Flask(__name__)
 
-brewhost = "https://api.brewerydb.com"
+brewhost = "http://api.brewerydb.com"
 @application.route("/Assignment9")
 def main():
     return render_template('Assignment9.html')
@@ -19,10 +19,19 @@ def proxy_other(other):
     print("URL:::::" + request.remote_addr)
     try:
         with open("brewery.pass", 'r') as file:
-            apikey = file.readline()
-            print(brewhost +'/'+ other + '?key=' + apikey  + "&" + request.query_string.decode('utf-8'))
-            r = requests.get(brewhost +'/'+ other + '?key=' + apikey  + "&" + request.query_string.decode('utf-8'))
-            return Response(r.content, mimetype='text/json')
+            apikey = file.readline().rstrip()
+            options={}
+            options.update({"key":apikey});
+            optionString = request.query_string.decode('utf-8').replace('%2C', ',').replace('%20', ' ')
+            opts = optionString.split('&')
+            for o in opts :
+                kv = o.split('=')
+                options.update({kv[0]:kv[1]})
+            print(options)
+            url = brewhost +'/'+ other
+            print(url)
+            r = requests.get(url, params=options)
+            return Response(r.content, mimetype='text/json') 
     except IOError:
         print("IOError")
 if __name__ == "__main__":
