@@ -6,8 +6,12 @@ application = Flask(__name__)
 
 brewhost = "http://api.brewerydb.com"
 @application.route("/Assignment9")
-def main():
+def nine():
     return render_template('Assignment9.html')
+
+@application.route("/Assignment10")
+def ten():
+    return render_template('Assignment10.html')
 
 @application.route('/bdb/')
 def proxy_root():

@@ -1,0 +1,30 @@
+<html>
+<!DOCTYPE HTML>
+<head>
+    <title>
+        Assignment 10
+    </title>
+    <script src="{{ url_for('static',filename='js/jquery-3.1.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='js/jquery-ui-1.12.1.custom/jquery-ui.theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/assignment10.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/leaflet/leaflet.css') }}" /> 
+    <script src="{{ url_for('static',filename='js/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/leaflet/leaflet.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/assignment10.js') }}"> </script>
+    </head>
+<body>
+    <div>
+        <h3>Available Events Are:</h3>
+        <ul>
+            <li>click</li>
+            <li>zoomstart</li>
+            <li>zoomend</li>
+            <li>move</li>
+            <li>movend</li>
+        </ul>
+    </div>
+    <div id="map" ></div>
+    <div id="output"></div>
+    </body>
+</html>
