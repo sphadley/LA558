@@ -13,6 +13,10 @@ def nine():
 def ten():
     return render_template('Assignment10.html')
 
+@application.route("/Assignment11")
+def eleven():
+    return render_template('Assignment11.html')
+
 @application.route('/bdb/')
 def proxy_root():
     r = requests.get(brewhost + '/')
