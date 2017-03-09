@@ -119,7 +119,7 @@ $("document").ready(() => {
     map =  L.map('map', {
        center: [42.496816, -96.400303], 
         zoom: 13,
-        layers: [osm, esri, collegeLayer, buildings, fields ]
+        layers: [osm, collegeLayer, buildings, fields ]
     });
 
     baseLayers = {
