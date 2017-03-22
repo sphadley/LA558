@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+body{
+    font-family: 'Lobster', cursive;
+}
+#map {
+    height:100%;
+    width: 100%;
+}
+.popupImg {
+    width: 200px;
+    height: auto;
+}
+
+.popupHeader{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Lobster', cursive;
+}
+
+
+.legend {
+    line-height: 30px;
+    color: #555;
+    background-color: white;
+    height: 300px;
+}
+.legend i {
+    width: 40px;
+    height: 30px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.9;
+}
