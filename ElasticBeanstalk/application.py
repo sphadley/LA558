@@ -17,9 +17,18 @@ def ten():
 def eleven():
     return render_template('Assignment11.html')
 
+@application.route("/Assignment14")
+def fourteen():
+    return render_template('Assignment14.html')
+
 @application.route('/bdb/')
 def proxy_root():
     r = requests.get(brewhost + '/')
+    return Response(r.content, mimetype='text/json')
+
+@application.route('/flights')
+def get_flights():
+    r = requests.get("https://opensky-network.org/api/states/all")
     return Response(r.content, mimetype='text/json')
 
 @application.route('/bdb/<path:other>')

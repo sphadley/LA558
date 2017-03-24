@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+body{
+    font-family: 'Lato', sans;
+}
+#map {
+    height:calc(100% - 3em);
+    width: 100%;
+}
+.popupImg {
+    width: 200px;
+    height: auto;
+}
+
+.popupHeader{
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Lobster', cursive;
+}
+
+
+.legend {
+    line-height: 30px;
+    color: #555;
+    background-color: white;
+    height: 300px;
+}
+.legend i {
+    width: 40px;
+    height: 30px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.9;
+}
+#headerDiv
+{
+    height:3em;;
+}
+
+#headerDiv h1
+{
+    display: inline;
+}
+
+#headerDiv select
+{
+    height:2em;
+    margin-left:1em;
+    margin-top: .5em;
+    vertical-align: top;
+}
+
