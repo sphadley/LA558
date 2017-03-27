@@ -21,6 +21,10 @@ def eleven():
 def fourteen():
     return render_template('Assignment14.html')
 
+@application.route("/MiniProject")
+def mini():
+    return render_template('MiniProject.html')
+
 @application.route('/bdb/')
 def proxy_root():
     r = requests.get(brewhost + '/')
