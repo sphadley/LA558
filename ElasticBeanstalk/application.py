@@ -44,10 +44,11 @@ def proxy_other(other):
             options={}
             options.update({"key":apikey});
             optionString = request.query_string.decode('utf-8').replace('%2C', ',').replace('%20', ' ')
-            opts = optionString.split('&')
-            for o in opts :
-                kv = o.split('=')
-                options.update({kv[0]:kv[1]})
+            if optionString != "":
+                opts = optionString.split('&')
+                for o in opts :
+                    kv = o.split('=')
+                    options.update({kv[0]:kv[1]})
             print(options)
             url = brewhost +'/'+ other
             print(url)

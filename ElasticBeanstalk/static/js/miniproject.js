@@ -5,6 +5,8 @@ var pendingMarkers = [];
 var totalMarkers = 0;
 var bar;
 var personMarker;
+var minBeers = 0;
+var skipped = 0;
 
 function getYearColor(year){
     var numYear = parseInt(year);
@@ -71,39 +73,79 @@ function getMarkerColors(loc)
     }
 }
 
-function addMarkers(beers, bid)
+function getImgString(loc)
 {
-    if(beers.data == null)
+    if( loc.images != null && loc.images.icon != "" )
     {
-        locations[bid].beers = [];
+        return "<img class='smallImg' src='" + loc.images.icon + "'></img> <br>" ;
     }
     else
     {
-        locations[bid].beers = beers.data;
+        return "";
     }
-    //$("#output").append('<div class="logoBox" > <img class="brewerLogo" src="' + brewer.data.images.large + '"/>'+ brewer.data.name+ '<br>' + brewer.data.locations[0].locationType + '<br>' + brewer.data.locations[0].openToPublic + '</div>');
-    var ltlng = L.latLng(locations[bid].lat, locations[bid].lon);
-    var col = getMarkerColors(locations[bid]);
-    var m = L.marker(ltlng, {
-            icon: L.AwesomeMarkers.icon({
-                prefix: 'ion',
-                icon:'ion-beer',
-                markerColor: col 
-            })
-        }).bindPopup("<strong>" + locations[bid].name + "</strong><br>" + 
-        "Year Opened: " + locations[bid].yearOpened + "<br>" + 
-        "Beers: " +  locations[bid].beers.length);
-    pendingMarkers.push(m);
-    var numLayers = pendingMarkers.length;
+}
+
+function addMarkers(beers, bid)
+{
+    var filteredBeers = [];
+    if(beers.data != null)
+    {
+        for( var b in beers.data)
+        {
+            var filterType = $('#typeSelect option:selected').val() 
+            if(filterType == 0 || filterType == beers.data[b].styleId)
+            {
+                filteredBeers.push(beers.data[b]);
+            }
+        }
+    }
+    locations[bid].beers = filteredBeers;
+    if(locations[bid].beers.length > minBeers)
+    {
+        var ltlng = L.latLng(locations[bid].lat, locations[bid].lon);
+        var beerText = "";
+        for(var b in locations[bid].beers)
+        {
+            beerText = beerText + locations[bid].beers[b].name + "<br>"
+        }
+        var col = getMarkerColors(locations[bid]);
+        var m = L.marker(ltlng, {
+                icon: L.AwesomeMarkers.icon({
+                    prefix: 'ion',
+                    icon:'ion-beer',
+                    markerColor: col 
+                })
+            }).bindPopup("<strong>" + locations[bid].name + "<br>" + 
+            getImgString(locations[bid]) +
+            "Year Opened: " + locations[bid].yearOpened + "<br>" + 
+            "Beers: " +  locations[bid].beers.length + "</strong><br><br>" + beerText, {
+                maxWidth: 250, 
+                minWidth: 150,
+                maxHeight:250,
+                autoPan: true, 
+                keepInView: true,
+                closeButton: true, 
+                autoPanPadding: [25, 5]
+            });
+        pendingMarkers.push(m);
+    }
+    else
+    {
+        skipped++;
+    }
+    var numLayers = pendingMarkers.length + skipped;
     bar.animate(numLayers/totalMarkers);
     if(numLayers == totalMarkers)
     {
         for(var m in pendingMarkers)
         {
-            $('#overlay').css({'display': 'none'});
             pendingMarkers[m].addTo(brewerLayer);
         }
-        Map.fitBounds(brewerLayer.getBounds()); 
+        if(pendingMarkers.length > 0)
+        {
+            Map.fitBounds(brewerLayer.getBounds()); 
+        }
+        $('#overlay').css({'display': 'none'});
     }
 }
 
@@ -117,6 +159,7 @@ function getBeers(breweryId)
 }
 
 function refreshBreweries(lat, lon) {
+    skipped = 0;
     bar.set(0);
     $('#overlay').css({'display': 'block'});
     totalMarkers =0;
@@ -139,12 +182,13 @@ function getBreweries(lat, lon, pageNumber) {
         for(var loc in data.data)
         {
             locations[data.data[loc].breweryId] = { 
-            lat: data.data[loc].latitude, 
-            lon: data.data[loc].longitude,
-            name: data.data[loc].brewery.name,
-            type: data.data[loc].locationType,
-            yearOpened: data.data[loc].yearOpened == null ? 'uknown' : data.data[loc].yearOpened ,
-            openToPublic: data.data[loc].openToPublic  
+                lat: data.data[loc].latitude, 
+                lon: data.data[loc].longitude,
+                name: data.data[loc].brewery.name,
+                type: data.data[loc].locationType,
+                yearOpened: data.data[loc].yearOpened == null ? 'uknown' : data.data[loc].yearOpened ,
+                openToPublic: data.data[loc].openToPublic,
+                images: data.data[loc].brewery.images
             };
             getBeers(data.data[loc].breweryId);
         }
@@ -246,7 +290,32 @@ $("document").ready(() => {
         var pos = personMarker.getLatLng();
         refreshBreweries(pos.lat, pos.lng);    
     });
+    $('#typeSelect').change(() => {
+        setLegend(false);
+        var pos = personMarker.getLatLng();
+        refreshBreweries(pos.lat, pos.lng);    
+    });
+
     setLegend(true);
+
+    $("#slider").slider({min:0, max:100, step:1}).on( "slidechange", ( event, ui ) =>
+    {
+        $('#sliderVal').text( ui.value);
+        minBeers = ui.value;
+        var pos = personMarker.getLatLng();
+        refreshBreweries(pos.lat, pos.lng);    
+    });
+    $.get( "bdb/v2/styles" ).done(function(data) {
+        console.log("receieved data");
+        for(var d in data.data)
+        {
+            if(data.data[d].name != '""')
+            {
+                $('#typeSelect').append("<option value='"+ data.data[d].id + "'>" + data.data[d].name + "</option>");
+            }
+        }
+    });
+
 
 });
 
