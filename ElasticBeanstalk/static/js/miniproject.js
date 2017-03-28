@@ -39,19 +39,19 @@ function getYearColor(year){
 }
 
 function getBeerColor(beers){
-    if(beers < 10)
+    if(beers < 2)
     {
         return 'lightblue';
     }
-    else if (beers < 20)
+    else if (beers < 5)
     {
         return 'blue';
     }
-    else if (beers < 50)
+    else if (beers < 10)
     {
         return 'green';
     }
-    else if(beers < 100)
+    else if(beers < 20)
     {
         return 'orange';
     }
@@ -84,16 +84,30 @@ function getImgString(loc)
         return "";
     }
 }
+function getSelectedStyles()
+{
+    var selectedOpts =  $('#typeSelect option:selected');
+    var optList = [];
+    for(var i =0; i < selectedOpts.length; i++)
+    {
+        optList.push(selectedOpts[i].value);
+    }
+    return optList;
+}
+function inBeerList(styles, id)
+{
+    var result = $.inArray(id.toString(), styles);
+    return result  > -1;
+}
 
-function addMarkers(beers, bid)
+function addMarkers(styles, beers, bid)
 {
     var filteredBeers = [];
     if(beers.data != null)
     {
         for( var b in beers.data)
         {
-            var filterType = $('#typeSelect option:selected').val() 
-            if(filterType == 0 || filterType == beers.data[b].styleId)
+            if(beers.data[b].styleId != null && inBeerList(styles, beers.data[b].styleId))
             {
                 filteredBeers.push(beers.data[b]);
             }
@@ -149,11 +163,11 @@ function addMarkers(beers, bid)
     }
 }
 
-function getBeers(breweryId)
+function getBeers(styles, breweryId)
 {
     $.get("bdb/v2/brewery/" + breweryId +"/beers", { withBreweries:'N'}).done((beers) => 
     {
-        addMarkers(beers, breweryId); 
+        addMarkers(styles, beers, breweryId); 
     });
 
 }
@@ -167,10 +181,12 @@ function refreshBreweries(lat, lon) {
     pendingMarkers = [];
     $("#output").empty();
     locations = {};
-    getBreweries(lat, lon, 1);
+    var styles = getSelectedStyles();
+    getBreweries(styles,lat, lon, 1);
 }
 
-function getBreweries(lat, lon, pageNumber) {
+function getBreweries(styles, lat, lon, pageNumber) {
+    
     $.get( "bdb/v2/search/geo/point", 
     {lat:lat, lng:lon, radius: 100, p: pageNumber }).done(function(data) {
         if(data.data == null)
@@ -190,7 +206,7 @@ function getBreweries(lat, lon, pageNumber) {
                 openToPublic: data.data[loc].openToPublic,
                 images: data.data[loc].brewery.images
             };
-            getBeers(data.data[loc].breweryId);
+            getBeers(styles, data.data[loc].breweryId);
         }
         if(pageNumber < data.numberOfPages)
             getBreweries(pageNumber+1);                                        //$("#output").html(brewIds);
@@ -211,8 +227,8 @@ function setLegend(firstRun)
         if($( "select#stat" ).val() == 'beers')
         {
             var div = L.DomUtil.create('div', 'info legend'),
-            vals = [0, 10, 20, 50, 100],
-            labels = ['0','10 varieties','20','50','100' ];
+            vals = [0, 2, 5, 10, 20],
+            labels = ['0','2 varieties','5','10','20' ];
             div.innerHTML += "<b>Varieties Produced</b><br>";
             for (var i = 0; i < vals.length; i++) {
                 div.innerHTML +=
@@ -290,15 +306,11 @@ $("document").ready(() => {
         var pos = personMarker.getLatLng();
         refreshBreweries(pos.lat, pos.lng);    
     });
-    $('#typeSelect').change(() => {
-        setLegend(false);
-        var pos = personMarker.getLatLng();
-        refreshBreweries(pos.lat, pos.lng);    
-    });
 
+    
     setLegend(true);
 
-    $("#slider").slider({min:0, max:100, step:1}).on( "slidechange", ( event, ui ) =>
+    $("#slider").slider({min:0, max:20, step:1}).on( "slidechange", ( event, ui ) =>
     {
         $('#sliderVal').text( ui.value);
         minBeers = ui.value;
@@ -314,6 +326,21 @@ $("document").ready(() => {
                 $('#typeSelect').append("<option value='"+ data.data[d].id + "'>" + data.data[d].name + "</option>");
             }
         }
+        $('#typeSelect').multiselect({
+            buttonWidth: '250px',
+            enableFiltering: true, 
+            enableCaseInsensitiveFiltering: true,
+            numberDisplayed: 1,
+            includeSelectAllOption: true,
+            onDropdownHide: function(event) {
+                setLegend(false);
+                var pos = personMarker.getLatLng();
+                refreshBreweries(pos.lat, pos.lng);    
+            }
+        });
+        $('#typeSelect').multiselect('selectAll', false);
+        $('#typeSelect').multiselect('updateButtonText');
+    
     });
 
 
