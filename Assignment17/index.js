@@ -9,7 +9,6 @@ $("document").ready(() => {
     }).addTo(map);
 
 
-    $('#myAddress').val('1307 Florida Ave., Ames, IA, 50014');
     var geoCodes = new L.FeatureGroup().addTo(map);
 
     $('#geocode').click(function () {
