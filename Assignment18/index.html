@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2017 by profSeeger (http://jsbin.com/siwehal/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="LA 458/558 22a add marker on click to a DB">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+	
+
+<!--External Data-->	
+    <script src="https://indicator.extension.iastate.edu/z_cjs/teachingGIS/webGIS_17/studentFeaturesDB.php?userID=cjseeger&theFunction=responseVar"></script>
+	
+
+	
+<!--External CSS-->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="http://129.186.142.145/indicators/classes/leaflet-awesome-markers/dist/leaflet.awesome-markers.css">
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" href="index.css" />
+	<!--External JS-->	
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+    <script src="http://129.186.142.145/indicators/classes/leaflet-awesome-markers/dist/leaflet.awesome-markers.js"></script>	
+    <script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
+    <script src="index.js"></script>
+</head>
+<body>
+
+	Category: <input id = 'field1'> <br>
+	Title: <input id = 'field2'> <br>
+	Text: <input id = 'field3'> <br>
+	<input type="checkbox" id="addMarkReady" value="X"> Ready to add marker on map click<br>
+	
+<div id="map"></div>
+</body>
+</html>
