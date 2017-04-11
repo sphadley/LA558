@@ -27,7 +27,7 @@ $('document').ready(() => {
     map =  L.map('map', {
        center: [41.577, -93.231], 
         zoom: 3,
-        layers: [osm /*, flights*/ ]
+        layers: [osm, flights ]
     });
 
 
