@@ -1,11 +1,11 @@
 var map;
-var flights = new L.FeatureGroup();
+var userLayer = new L.FeatureGroup();
 
 function showPosition(pos) {
     map.setView([pos.coords.latitude, pos.coords.longitude], 12);
-    flights.clearLayers();
+    userLayer.clearLayers();
     var ltlng = L.latLng(pos.coords.latitude, pos.coords.longitude);
-    var m = L.marker(ltlng).addTo(flights);
+    var m = L.marker(ltlng).addTo(userLayer);
 
     console.log(pos.coords.latitude);
     console.log(pos.coords.longitude);
@@ -27,7 +27,7 @@ $('document').ready(() => {
     map =  L.map('map', {
        center: [41.577, -93.231], 
         zoom: 3,
-        layers: [osm, flights ]
+        layers: [osm, userLayer ]
     });
 
 
@@ -36,11 +36,13 @@ $('document').ready(() => {
     };
 
     var overlayMaps = {
-        "User Marker": flights
+        "User Marker": userLayer
     };
 
 
     L.control.layers(baseMaps, overlayMaps).addTo(map);
-    
-    getLocation();
+   
+    var allow = confirm("Allow the page to use your locaiton?"); 
+    if(allow)
+        getLocation();
 });
