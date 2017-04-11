@@ -1,7 +1,12 @@
 var map;
+var flights = new L.FeatureGroup();
 
 function showPosition(pos) {
     map.setView([pos.coords.latitude, pos.coords.longitude], 12);
+    flights.clearLayers();
+    var ltlng = L.latLng(pos.coords.latitude, pos.coords.longitude);
+    var m = L.marker(ltlng).addTo(flights);
+
     console.log(pos.coords.latitude);
     console.log(pos.coords.longitude);
 };
@@ -31,6 +36,7 @@ $('document').ready(() => {
     };
 
     var overlayMaps = {
+        "User Marker": flights
     };
 
 
