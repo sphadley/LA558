@@ -1,9 +1,9 @@
 var map;
 
-function showPosition(position) {
-    map.setView([postion.coords.latitude, postion.coords.longitude], 12);
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
+function showPosition(pos) {
+    map.setView([pos.coords.latitude, pos.coords.longitude], 12);
+    console.log(pos.coords.latitude);
+    console.log(pos.coords.longitude);
 };
 
 function getLocation() {
