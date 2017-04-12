@@ -1,4 +1,3 @@
-console.clear();
 var userID = 'hadleyst';
 //get the existing data from the server by adding the following in the <head>
 //or you can use the URL below and the leaflet ajax plugin
