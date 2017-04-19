@@ -1,0 +1,57 @@
+<html>
+<!DOCTYPE HTML>
+<head>
+    <title>
+        MiniProject 
+    </title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css"/>
+    <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" type="text/css"/>-->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+    <script src="{{ url_for('static',filename='js/jquery-3.1.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/jquery-ui-1.12.1.custom/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='js/jquery-ui-1.12.1.custom/jquery-ui.theme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/nearbeer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/leaflet/leaflet.css') }}" /> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.awesome-markers.css') }}">
+    <script src="{{ url_for('static',filename='js/jquery-ui-1.12.1.custom/jquery-ui.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/progressbar.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/leaflet/leaflet.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/leaflet.awesome-markers.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-multiselect.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-multiselect.css') }}" type="text/css"/>
+    <script src="{{ url_for('static', filename='js/nearbeer.js') }}"> </script>
+</head>
+<body>
+    <div id="header" >
+        <div id="titleDiv">
+            <h1>NeerBeer: Brewery Finder</h1><br>
+            Drag person marker or select options to search for local breweries in the area.
+        </div>
+        <div id="beerFilter">
+            <span>Min # of Varieties:</span> <span id="sliderVal">0</span><br>
+            <div id="slider"></div>
+            <span>0</span> <span style="margin-left:150px;">20</span>
+        </div>
+        <div id="legendPicker">
+            <span>Color Statistic: </span><br>
+            <select class="form-control"  id="stat">
+                <option value="beers"> Number Of Beers </option>
+                <option value="age"> Years Old</option>
+            </select>
+        </div>
+        <div id="beerType">
+            <span>Beer Style Filter</span><br>
+            <select  id='typeSelect' multiple="multiple">
+            </select>
+        </div>
+
+            </div>
+    <div id="overlay">
+        <div id="progress"></div>
+    </div>
+    <div id="map" ></div>
+    <img id="bdb" src="{{ url_for('static',filename='bdb.png') }}"></img>
+    </body>
+</html>

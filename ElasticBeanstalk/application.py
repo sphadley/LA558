@@ -25,6 +25,10 @@ def fourteen():
 def mini():
     return render_template('MiniProject.html')
 
+@application.route("/NearBeer.html")
+def mini():
+    return render_template('NearBeer.html')
+
 @application.route('/bdb/')
 def proxy_root():
     r = requests.get(brewhost + '/')
