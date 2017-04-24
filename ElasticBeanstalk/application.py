@@ -26,7 +26,7 @@ def mini():
     return render_template('MiniProject.html')
 
 @application.route("/NearBeer.html")
-def mini():
+def final():
     return render_template('NearBeer.html')
 
 @application.route('/bdb/')

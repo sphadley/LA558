@@ -3,8 +3,7 @@ body{
     font-family: 'Lato', sans;
 }
 #header {
-    position:absolute;
-    height: 200px;
+    min-height: 200px;
 }
 
 #header h1 {
@@ -17,14 +16,17 @@ display:inline;
     margin-right: 20px;
 }
 
-#map, #overlay {
-    position:absolute;
-    top:200px;
+#mapContainer {
     left:0;
     height: calc(100% - 250px);
     width: 100%;
 }
-
+#map, #overlay {
+    left:0;
+    position:absolute;
+    height: calc(100% - 250px);
+    width: 100%;
+}
 #overlay {
     height: calc(100% - 250px); 
     width:100%;
@@ -40,7 +42,6 @@ display:inline;
 }
 
 #bdb {
-    position:absolute;
     bottom:0px; 
     height:50px;
 }
@@ -75,32 +76,27 @@ display:inline;
     opacity: 0.9;
 }
 
-#slider {
-    width: 200px;
-    margin-left:15px;
-    margin-top: 5px;
-}
-
 
 #titleDiv{
-    margin-bottom:20px;
 }
 
-#beerType {
-    float: left;
+#personsDiv {
+    display: inline-block;
+    margin-left: 50px;
 }
 
-#beerFilter{
-    float:right;
-}
-#legendPicker{
-    float:left;
-    margin: 0px 0px 0px 0px;
-}
-#stat {
-    height:42px
+#personsDiv div {
+    display: inline-block;
 }
 
+
+.personName {
+    width: 250px
+}
+
+#searchButton {
+    display: inline-block;
+}
 .smallImg {
     height:100px;
     width:auto;

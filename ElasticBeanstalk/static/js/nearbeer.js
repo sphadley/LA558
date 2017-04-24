@@ -4,72 +4,121 @@ var brewerLayer = new L.featureGroup();
 var pendingMarkers = [];
 var totalMarkers = 0;
 var bar;
-var personMarker;
-var minBeers = 0;
 var skipped = 0;
+var personNumber = 2;
+var beerStyles;
 
-function getYearColor(year){
-    var numYear = parseInt(year);
-    var currentYear = new Date().getFullYear();
-    var yearsOld = currentYear - numYear;
-    if(isNaN(year))
-    {
-        return 'black';
-    }
-    else if(yearsOld < 5)
-    {
-        return 'lightblue';
-    }
-    else if (yearsOld <10)
-    {
-        return 'blue';
-    }
-    else if (yearsOld < 20)
-    {
-        return 'green';
-    }
-    else if(yearsOld < 50)
-    {
-        return 'orange';
-    }
-    else
-    {
-        return 'red';
-    }
-}
-
-function getBeerColor(beers){
-    if(beers < 2)
-    {
-        return 'lightblue';
-    }
-    else if (beers < 5)
-    {
-        return 'blue';
-    }
-    else if (beers < 10)
-    {
-        return 'green';
-    }
-    else if(beers < 20)
-    {
-        return 'orange';
-    }
-    else
-    {
-        return 'red';
-    }
-}
-
-function getMarkerColors(loc) 
+function showPosition(pos) 
 {
-    if($( "select#stat" ).val() == 'beers')
+    Map.panTo(new L.LatLng(pos.coords.latitude, pos.coords.longitude));
+};
+
+function setToLocalCoord() 
+{
+    if (navigator.geolocation) 
     {
-        return getBeerColor(loc.beers.length);
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } 
+    else 
+    {
+        Map.panTo([38.964706, -91.786471]);
+    }
+}
+
+var darkIcon = new L.Icon({
+  iconUrl: '/static/dark.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+var mediumDarkIcon = new L.Icon({
+  iconUrl: '/static/mediumDark.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+var mediumIcon = new L.Icon({
+  iconUrl: '/static/medium.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+var mediumLightIcon = new L.Icon({
+  iconUrl: '/static/mediumLight.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+var lightIcon = new L.Icon({
+  iconUrl: '/static/light.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
+function getMarkerColors(score) 
+{
+    if(personNumber = 3)
+    {
+        if(score == 2)
+        {
+            return darkIcon;
+        }
+        else
+        {
+            return lightIcon;
+        }
+    }
+    else if(personNumber = 4)
+    {
+        if(score == 3)
+        {
+            return darkIcon;
+        }
+        else if(score == 2 )
+        {
+            return mediumIcon;
+        }
+        else
+        {
+            return lightIcon;
+        }
     }
     else
     {
-        return getYearColor(loc.yearOpened); 
+        if (score == personNumber - 1)
+        {
+            return darkIcon;
+        }
+        else if(score == personNumber -2)
+        {
+            return mediumDarkIcon;
+        }
+        else if(score == personNumber -3)
+        {
+            return mediumIcon;
+        }
+        else if(score == personNumber -4)
+        {
+            return mediumLightIcon;
+        }
+        else
+        {
+            return lightIcon;
+        }
     }
 }
 
@@ -86,53 +135,90 @@ function getImgString(loc)
 }
 function getSelectedStyles()
 {
-    var selectedOpts =  $('#typeSelect option:selected');
-    var optList = [];
-    for(var i =0; i < selectedOpts.length; i++)
+    var optDict = {};
+    for(var i = 1; i < personNumber; i++)
     {
-        optList.push(selectedOpts[i].value);
+        var selector = '#typeSelect'+ i +' option:selected';
+        var selectedOpts =  $(selector);
+        var optList = [];
+        for(var j =0; j < selectedOpts.length; j++)
+        {
+            optList.push(selectedOpts[j].value);
+        }
+        var key = $('#name'+i).val();
+        optDict[key] = optList;
     }
-    return optList;
+    return optDict;
 }
-function inBeerList(styles, id)
+
+function getBeerSelection(styles, beers)
 {
-    var result = $.inArray(id.toString(), styles);
-    return result  > -1;
+    var selectDict = {}
+    for (var p in styles) 
+    {
+        selectDict[p] = [];
+    }
+
+    for (var p in styles) 
+    {
+        for( var b in beers)
+        {
+            var s =beers[b].styleId;
+            if(s != null) 
+            {
+                var personStyle = styles[p];
+                var result = $.inArray(s.toString(), personStyle);
+                if(result  > -1)
+                {
+                    selectDict[p].push(beers[b].name);
+                }
+            }
+        }
+    }
+    return selectDict;
+}
+
+function getBeerText(selections)
+{
+    var result = '';
+    for(var p in selections)
+    {
+        result += '<strong>' + p + ':</strong><br>';
+        for(var b in selections[p])
+        {
+            result +=  selections[p][b] + '<br>';
+        }
+        result += '<br>';
+    }
+    return result;
+}
+
+function getScore(selections)
+{
+    var score = 0;
+    for (var p in selections)
+    {
+        if(selections[p].length > 0)
+            score++;
+    }
+    return score;
 }
 
 function addMarkers(styles, beers, bid)
 {
-    var filteredBeers = [];
-    if(beers.data != null)
-    {
-        for( var b in beers.data)
-        {
-            if(beers.data[b].styleId != null && inBeerList(styles, beers.data[b].styleId))
-            {
-                filteredBeers.push(beers.data[b]);
-            }
-        }
-    }
-    locations[bid].beers = filteredBeers;
-    if(locations[bid].beers.length > minBeers)
+    var selections = getBeerSelection(styles,beers.data);
+    var score = getScore(selections);
+    if(score > 0)
     {
         var ltlng = L.latLng(locations[bid].lat, locations[bid].lon);
-        var beerText = "";
-        for(var b in locations[bid].beers)
-        {
-            beerText = beerText + locations[bid].beers[b].name + "<br>"
-        }
-        var col = getMarkerColors(locations[bid]);
+        var beerText = getBeerText(selections);
+        var icon = getMarkerColors(score);
         var m = L.marker(ltlng, {
-                icon: L.AwesomeMarkers.icon({
-                    prefix: 'ion',
-                    icon:'ion-beer',
-                    markerColor: col 
-                })
-            }).bindPopup("<strong>" + locations[bid].name + "<br>" + 
+                icon: icon
+                }).bindPopup("<strong>" + locations[bid].name + "<br>" + 
             getImgString(locations[bid]) +
             "Year Opened: " + locations[bid].yearOpened + "<br>" + 
-            "Beers: " +  locations[bid].beers.length + "</strong><br><br>" + beerText, {
+            "</strong><br><br>" + beerText, {
                 maxWidth: 250, 
                 minWidth: 150,
                 maxHeight:250,
@@ -155,10 +241,6 @@ function addMarkers(styles, beers, bid)
         {
             pendingMarkers[m].addTo(brewerLayer);
         }
-        if(pendingMarkers.length > 0)
-        {
-            Map.fitBounds(brewerLayer.getBounds()); 
-        }
         $('#overlay').css({'display': 'none'});
     }
 }
@@ -172,7 +254,15 @@ function getBeers(styles, breweryId)
 
 }
 
-function refreshBreweries(lat, lon) {
+function refreshBreweries() 
+{
+    var bounds = Map.getBounds()
+    var center = Map.getCenter();
+    var rad = Math.round(Math.abs(bounds._southWest.lng - bounds._northEast.lng) * 55);
+    if (rad > 100)
+    {
+        rad = 100;
+    }
     skipped = 0;
     bar.set(0);
     $('#overlay').css({'display': 'block'});
@@ -182,13 +272,13 @@ function refreshBreweries(lat, lon) {
     $("#output").empty();
     locations = {};
     var styles = getSelectedStyles();
-    getBreweries(styles,lat, lon, 1);
+    getBreweries(styles, center.lat, center.lng, rad, 1);
 }
 
-function getBreweries(styles, lat, lon, pageNumber) {
-    
+function getBreweries(styles, lat, lon, rad, pageNumber) 
+{
     $.get( "bdb/v2/search/geo/point", 
-    {lat:lat, lng:lon, radius: 100, p: pageNumber }).done(function(data) {
+    {lat:lat, lng:lon, radius:rad, p:pageNumber }).done(function(data) {
         if(data.data == null)
         {
             $('#overlay').css({'display': 'none'});
@@ -209,54 +299,34 @@ function getBreweries(styles, lat, lon, pageNumber) {
             getBeers(styles, data.data[loc].breweryId);
         }
         if(pageNumber < data.numberOfPages)
-            getBreweries(pageNumber+1);                                        //$("#output").html(brewIds);
+            getBreweries(styles, lat, lon, rad, pageNumber+1);                                        //$("#output").html(brewIds);
      });
 
 }
 
-function setLegend(firstRun)
+
+function initCombobox(comboName)
 {
-    if(!firstRun)
+    for(var d in beerStyles.data)
     {
-        Map.removeControl(legend);
+        if(beerStyles.data[d].name != '""')
+        {
+            $(comboName).append("<option value='"+ beerStyles.data[d].id + "'>" + beerStyles.data[d].name + "</option>");
+        }
     }
-    legend = new L.control({
-        position: 'bottomleft'
-    }); 
-    legend.onAdd = function(map) {
-        if($( "select#stat" ).val() == 'beers')
-        {
-            var div = L.DomUtil.create('div', 'info legend'),
-            vals = [0, 2, 5, 10, 20],
-            labels = ['0','2 varieties','5','10','20' ];
-            div.innerHTML += "<b>Varieties Produced</b><br>";
-            for (var i = 0; i < vals.length; i++) {
-                div.innerHTML +=
-                '<i style="background:' + getBeerColor(vals[i] ) + ' "></i> ' +
-                labels[i]+'<br>';
-            }
-        }
-        else
-        {
-            var today = new Date();
-            var year = today.getFullYear();
-            var div = L.DomUtil.create('div', 'info legend'),
-            vals = [year, year -5, year -10, year-20, year -50],
-            labels = ['new','5 years old', '10', '20', '50'];
-            div.innerHTML += "<b>Age of Brewery</b><br>";
-            for (var i = 0; i < vals.length; i++) {
-                div.innerHTML +=
-                '<i style="background:' + getYearColor(vals[i] ) + ' "></i> ' +
-                labels[i]+'<br>';
-            }
-        }
-        return div;
-    }; 
-    legend.addTo(Map);
- 
+    $(comboName).multiselect({
+        buttonWidth: '250px',
+        enableFiltering: true, 
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        includeSelectAllOption: true
+    });
+    $(comboName).multiselect('selectAll', false);
+    $(comboName).multiselect('updateButtonText');
 }
 
-$("document").ready(() => {
+$("document").ready(() => 
+{
 
     bar = new ProgressBar.Circle(progress, {
     strokeWidth: 6,
@@ -281,69 +351,40 @@ $("document").ready(() => {
         markerColor: 'purple'
       });
 
-    var ltlng = L.latLng(42.4975, -94.1680);
-    personMarker = new L.marker(ltlng, {id:"myLoc", spin:'true', icon: personIcon, draggable:'true'});
-    personMarker.on('dragend', function(event){
-            var marker = event.target;
-            var position = marker.getLatLng();
-            console.log(position);
-            marker.setLatLng(position,{id:"myLoc",draggable:'true'}).bindPopup(position).update();
-            refreshBreweries(position.lat, position.lng);
-    });
-
     Map =  L.map('map', {
-       center: [41.577, -93.231], 
-        zoom: 5,
-        layers: [osm, brewerLayer, personMarker ]
+       center: [37.292639, -66.746625], 
+        zoom: 9,
+        layers: [osm, brewerLayer ]
     });
 
     baseLayers = {
         "Open Street Map": osm
     };
-    L.control.layers(baseLayers, overlays).addTo(Map);
-    $('#stat').change(() => {
-        setLegend(false);
-        var pos = personMarker.getLatLng();
-        refreshBreweries(pos.lat, pos.lng);    
-    });
 
-    
-    setLegend(true);
 
-    $("#slider").slider({min:0, max:20, step:1}).on( "slidechange", ( event, ui ) =>
+    $.get( "bdb/v2/styles" ).done(function(data) 
     {
-        $('#sliderVal').text( ui.value);
-        minBeers = ui.value;
-        var pos = personMarker.getLatLng();
-        refreshBreweries(pos.lat, pos.lng);    
-    });
-    $.get( "bdb/v2/styles" ).done(function(data) {
         console.log("receieved data");
-        for(var d in data.data)
-        {
-            if(data.data[d].name != '""')
-            {
-                $('#typeSelect').append("<option value='"+ data.data[d].id + "'>" + data.data[d].name + "</option>");
-            }
-        }
-        $('#typeSelect').multiselect({
-            buttonWidth: '250px',
-            enableFiltering: true, 
-            enableCaseInsensitiveFiltering: true,
-            numberDisplayed: 1,
-            includeSelectAllOption: true,
-            onDropdownHide: function(event) {
-                setLegend(false);
-                var pos = personMarker.getLatLng();
-                refreshBreweries(pos.lat, pos.lng);    
-            }
-        });
-        $('#typeSelect').multiselect('selectAll', false);
-        $('#typeSelect').multiselect('updateButtonText');
-    
+        beerStyles = data;
+        initCombobox('#typeSelect1');
     });
-
-
+    $('#searchButton').click(() =>
+    {
+        refreshBreweries();
+    });
+    $('#addButton').click(() => 
+    {
+        $('#personsDiv').append(
+            '<div id="person' + personNumber + '">\
+                <input id="name' + personNumber + '" class="personName" value="Person' + personNumber + '"></input><br>\
+                <select  id="typeSelect' + personNumber + '" multiple="multiple"> \
+                </select> \
+            </div>'
+        );
+        initCombobox('#typeSelect' + personNumber);
+        personNumber++;
+    });
+    setToLocalCoord();
 });
 
 
