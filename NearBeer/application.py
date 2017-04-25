@@ -5,34 +5,13 @@ import requests
 application = Flask(__name__)
 
 brewhost = "http://api.brewerydb.com"
-@application.route("/Assignment9")
-def nine():
-    return render_template('Assignment9.html')
-
-@application.route("/Assignment10")
-def ten():
-    return render_template('Assignment10.html')
-
-@application.route("/Assignment11")
-def eleven():
-    return render_template('Assignment11.html')
-
-@application.route("/Assignment14")
-def fourteen():
-    return render_template('Assignment14.html')
-
-@application.route("/MiniProject")
-def mini():
-    return render_template('MiniProject.html')
+@application.route("/")
+def final():
+    return render_template('NearBeer.html')
 
 @application.route('/bdb/')
 def proxy_root():
     r = requests.get(brewhost + '/')
-    return Response(r.content, mimetype='text/json')
-
-@application.route('/flights')
-def get_flights():
-    r = requests.get("https://opensky-network.org/api/states/all")
     return Response(r.content, mimetype='text/json')
 
 @application.route('/bdb/<path:other>')
