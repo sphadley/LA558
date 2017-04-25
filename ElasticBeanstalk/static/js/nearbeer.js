@@ -7,10 +7,28 @@ var bar;
 var skipped = 0;
 var personNumber = 2;
 var beerStyles;
+var userLocation;
+
+function addPersonMarker(coord)
+{
+    var m = L.marker(coord, 
+    {
+        icon: L.AwesomeMarkers.icon(
+        {
+            prefix: 'ion',
+            icon:'ion-person',
+            markerColor: 'green' 
+        })
+    }).bindPopup('Your Location');
+    m.addTo(Map);
+}
 
 function showPosition(pos) 
 {
-    Map.panTo(new L.LatLng(pos.coords.latitude, pos.coords.longitude));
+    var coord = new  L.LatLng(pos.coords.latitude, pos.coords.longitude)
+    userLocation = coord;
+    addPersonMarker(coord);
+    Map.panTo(coord);
 };
 
 function setToLocalCoord() 
@@ -21,7 +39,10 @@ function setToLocalCoord()
     } 
     else 
     {
-        Map.panTo([38.964706, -91.786471]);
+        var coord = new  L.LatLng(38.964706, -91.786471)
+        userLocation = coord;
+        addPersonMarker(coord);
+        Map.panTo(coord);
     }
 }
 
@@ -71,7 +92,7 @@ var lightIcon = new L.Icon({
 
 function getMarkerColors(score) 
 {
-    if(personNumber = 3)
+    if(personNumber == 3)
     {
         if(score == 2)
         {
@@ -82,7 +103,7 @@ function getMarkerColors(score)
             return lightIcon;
         }
     }
-    else if(personNumber = 4)
+    else if(personNumber == 4)
     {
         if(score == 3)
         {
