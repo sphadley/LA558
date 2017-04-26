@@ -1,3 +1,9 @@
+console.log(window.location.href);
+if (location.protocol != 'https:' && !window.location.href.startsWith('http://127.0.0.1'))
+{
+    location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+}
+
 var Map;
 var locations;
 var brewerLayer = new L.featureGroup();
@@ -39,7 +45,7 @@ function setToLocalCoord()
     } 
     else 
     {
-        var coord = new  L.LatLng(38.964706, -91.786471)
+        var coord = new  L.LatLng(51.001725, -2.924162);
         userLocation = coord;
         addPersonMarker(coord);
         Map.panTo(coord);
@@ -336,7 +342,7 @@ function initCombobox(comboName)
         }
     }
     $(comboName).multiselect({
-        buttonWidth: '250px',
+        buttonWidth: '300px',
         enableFiltering: true, 
         enableCaseInsensitiveFiltering: true,
         numberDisplayed: 1,
@@ -358,7 +364,7 @@ $("document").ready(() =>
     trailWidth:1
     });
     
-    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    var osm = L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }); 
     
@@ -373,7 +379,7 @@ $("document").ready(() =>
       });
 
     Map =  L.map('map', {
-       center: [37.292639, -66.746625], 
+       center: [51.001725, -2.924162], 
         zoom: 9,
         layers: [osm, brewerLayer ]
     });

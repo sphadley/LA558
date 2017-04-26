@@ -3,40 +3,40 @@ body{
     font-family: 'Lato', sans;
 }
 #header {
-    min-height: 200px;
+    min-height: 12.5em;
+    margin-left: 2.0em;
 }
 
 #header h1 {
-display:inline;
-    margin-right: 20px;
+    display:inline;
+    margin-right: 1.25em;
 }
 
 #header span, #header select {
-    font-size: 20px;
-    margin-right: 20px;
+    font-size: 1.25em;
+    margin-right: 1.25em;
 }
 
 #logo {
-    height: 75px; 
+    height: 4.688em; 
     width: auto;
-    margin-bottom: 15px;
-    margin-left: 30px;
-    margin-top: 15px;
+    margin-bottom: 0.938px;
+    margin-top: 0.938em;
 }
 
 #mapContainer {
     left:0;
-    height: calc(100% - 250px);
+    height: calc(100% - 20em);
     width: 100%;
 }
 #map, #overlay {
     left:0;
     position:absolute;
-    height: calc(100% - 250px);
+    height: calc(100% - 20em);
     width: 100%;
 }
 #overlay {
-    height: calc(100% - 250px); 
+    height: calc(100% - 20em); 
     width:100%;
     z-index:1001;
     display:none;
@@ -50,11 +50,12 @@ display:inline;
 }
 
 #bdb {
-    bottom:0px; 
-    height:50px;
+    height:3.125em;
+    position:relative;
+    bottom: -4em;
 }
 .logoBox {
-    padding: 5px;
+    padding: 0.313em;
     text-align: center;
     font-family:serif;
     font-size: 15px;
@@ -62,25 +63,25 @@ display:inline;
 .brewerLogo {
     display: block;
     margin: auto;
-    width: 50px;
+    width: 3.125em;
 }
 
 .awesome-marker i {
-    font-size: 20px;
-    margin-top: 8px;
+    font-size: 1.25em;
+    margin-top: 0.5em;
  }
 .legend {
-    line-height: 30px;
+    line-height: 1.875em;
     color: #555;
     background-color: white;
-    height: 175px;
+    height: 10.938;
     opacity: 0.7;
 }
 .legend i {
-    width: 40px;
-    height: 30px;
+    width: 2.5em;
+    height: 1.875em;
     float: left;
-    margin-right: 8px;
+    margin-right: 0.5em;
     opacity: 0.9;
 }
 
@@ -90,23 +91,26 @@ display:inline;
 
 #personsDiv {
     display: inline-block;
-    margin-left: 50px;
 }
 
 #personsDiv div {
     display: inline-block;
+    margin-right: 10px;
 }
 
 
 .personName {
-    width: 250px
+    height: 3.5em;
+    width: 300px;
 }
 
 #searchButton {
     display: inline-block;
 }
 .smallImg {
-    height:100px;
+    height:6.250em;
     width:auto;
 
+}
+#addButton {
 }

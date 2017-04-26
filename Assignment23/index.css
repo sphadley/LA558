@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+body{
+    font-family: 'Lobster', cursive;
+    height:100%;
+}
+#map {
+    position: absolute;
+    top:60px;
+    height: calc(100% - 70px);
+    width: calc(100% - 20px);
+    margin-left: 10px;
+}
+
+#header {
+    position: absolute;
+    top:0px;
+    height:20px;
+}

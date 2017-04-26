@@ -1,5 +1,7 @@
 <html>
 <!DOCTYPE HTML>
+<!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <head>
     <title>
         NearBeer
@@ -7,7 +9,7 @@
     
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css"/>
     <!--<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" type="text/css"/>-->
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ionicons.min.css') }}" type="text/css"/>
     <script src="{{ url_for('static',filename='js/jquery-3.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/nearbeer.css') }}">
