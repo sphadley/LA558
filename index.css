@@ -20,10 +20,10 @@ body{
     transition: width .2s, height .2s, margin .2s, box-shadow .2s;
 }
 .tile:hover {
-    width: 810px;
-    height: 410px;
-    margin: 0px;
-    box-shadow: 7px 12px 20px rgba(0,0,0,0.3);
+    width: 801px;
+    height: 401px;
+    margin: 8px;
+    box-shadow: 7px 12px 20px rgba(0,0,0,0.2);
 }
 
 .screenshot {
