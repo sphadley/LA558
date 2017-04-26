@@ -1,8 +1,56 @@
-@import url('https://fonts.googleapis.com/css?family=Lato|Nunito|Raleway');
-h1 {
-    font-family: 'Lato', sans-serif;
+@import url('https://fonts.googleapis.com/css?family=Arsenal');
+body{
+    font-family: Arsenal;
 }
-h2 {
-    font-family: 'Raleway', sans-serif;
+
+.label {
+    font-weight: bold;
 }
-#mapid { height: 200px; }
+.tile {
+    text-align: top; 
+    width: 800px;
+    height:400px;
+    padding:20px;
+    vertical-align: text-top;
+    box-shadow: 5px 10px 10px rgba(0,0,0,0.1);
+    margin: 10px;
+    display:inline-block;
+    font-size: 1.5em;
+    overflow: hidden;
+    transition: width .2s, height .2s, margin .2s, box-shadow .2s;
+}
+.tile:hover {
+    width: 810px;
+    height: 410px;
+    margin: 0px;
+    box-shadow: 7px 12px 20px rgba(0,0,0,0.3);
+}
+
+.screenshot {
+    width: auto; 
+    top: 50px;
+    height: auto; 
+    width: auto; 
+    max-width: 800px; 
+    max-height: 350px;
+}
+}
+
+.tile img {
+    width: 580px;
+    height: 380px;
+}
+
+
+.banner {
+    padding: 0.8em;
+    background-image:url(Gallery/banner.png);
+    background-position: right; 
+    background-repeat: no-repeat;
+    
+}
+
+a:link, a:visited, a:hover, a:active{
+    color: black;
+}
+
