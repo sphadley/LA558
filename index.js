@@ -39,4 +39,5 @@ $('document').ready(() =>
     $('#tileDiv').append(getTile('Mini Project', 'mini', 'http://la558.xprtnk47cj.us-east-1.elasticbeanstalk.com/MiniProject'));
     $('#tileDiv').append(getTile('Tech Report', 'report', 'la558-tech-report.pdf'));
     $('#tileDiv').append(getTile('Final Project', 'final', 'nearbeer.info'));
+    $('#tileDiv').append(getTile('Final Project Report', 'final-report', 'FinalProjectReport/index.html'));
 });
