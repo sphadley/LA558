@@ -20,9 +20,9 @@
     <link rel="icon" type="image/png" sizes="96x96" href="static/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
     <link rel="manifest" href="static/manifest.json">
+    <meta name="theme-color" content="#f15524">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="static/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff"> 
     <!--3rd party imports -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css"/>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ionicons.min.css') }}" type="text/css"/>
@@ -51,7 +51,7 @@
             <button class="btn-lg btn-success" id="setLocButton" >ok</button>
         </div>
     </div>
-    <button class="btn" id="locButton" title="Update your Location"><i class="icon ion-android-locate"></i></button>
+    <button class="btn btn-primary btn-lg" id="locButton" title="Update your Location"><i class="icon ion-android-locate"></i></button>
     <div id="header" >
         <div id="titleDiv">
             <img id="logo" src="{{ url_for('static',filename='logo.png') }}"></img>
@@ -63,8 +63,8 @@
                 </select>
             </div>
         </div>
-        <button id="addButton" class="btn-lg btn-success" title="Add a new person"> + </button>
-        <button id="searchButton" class="btn-lg btn-warning" title="Search this area" >Search</button>
+        <button id="addButton" class="btn btn-success btn-lg" title="Add a new person"> + </button>
+        <button id="searchButton" class="btn btn-warning btn-lg" title="Search this area" >Search</button>
     </div>
     <div id="mapContainer">
         <div id="overlay">
