@@ -67,6 +67,11 @@ body{
     position:relative;
     bottom: -4em;
 }
+#reportLink {
+    position:relative;
+    bottom: -4.2em;
+    left: calc(100vw - 350px);
+}
 .logoBox {
     padding: 0.313em;
     text-align: center;
