@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/ionicons.min.css') }}" type="text/css"/>
     <script src="{{ url_for('static',filename='js/jquery-3.1.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/nearbeer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='js/leaflet/leaflet.css') }}" /> 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/leaflet.awesome-markers.css') }}">
     <script src="{{ url_for('static',filename='js/progressbar.min.js') }}"></script>
@@ -20,9 +19,21 @@
     <script src="{{ url_for('static', filename='js/leaflet.awesome-markers.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap-multiselect.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-multiselect.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/nearbeer.css') }}">
+    <script src="{{ url_for('static', filename='js/beerIcons.js') }}"> </script>
+    <script src="{{ url_for('static', filename='js/geoCode.js') }}"> </script>
     <script src="{{ url_for('static', filename='js/nearbeer.js') }}"> </script>
 </head>
 <body>
+    <div id="modal">
+        <div id="modalContent">
+            <div id="modalClose">&times;</div>
+            <h4>Update your location</h4>
+            <input id="adressInput" placeholder="Enter your address" </input>
+            <button class="btn-lg btn-success" id="setLocButton" >ok</button>
+        </div>
+    </div>
+    <button class="btn" id="locButton"><i class="icon ion-android-locate"></i></button>
     <div id="header" >
         <div id="titleDiv">
             <img id="logo" src="{{ url_for('static',filename='logo.png') }}"></img>
