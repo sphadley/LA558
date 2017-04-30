@@ -186,8 +186,8 @@ body{
 #addButton, #searchButton {
     padding: 1.5em;
     font-size: 16px;
-    position: relative;
-    top: -10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 
