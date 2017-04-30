@@ -126,16 +126,20 @@ function addMarkers(styles, beers, bid)
     if(score > 0)
     {
         var ltlng = L.latLng(locations[bid].lat, locations[bid].lon);
+        var distance = getDistance([personMarker._latlng.lat, personMarker._latlng.lng], [ltlng.lat, ltlng.lng]);
         var beerText = getBeerText(selections);
         var icon = getMarkerColors(score);
         var m = L.marker(ltlng, {
                 icon: icon
-                }).bindPopup("<strong>" + locations[bid].name + "<br>" + 
+                }).bindPopup('<strong>' + locations[bid].name + '<br>' + 
             getImgString(locations[bid]) +
-            "Year Opened: " + locations[bid].yearOpened + "<br>" + 
-            "</strong><br><br>" + beerText, {
-                maxWidth: 250, 
-                minWidth: 150,
+            'Year Opened: ' + locations[bid].yearOpened + '<br>' + 
+            distance + ' miles away <br><br>' +
+            '<a href="' + getNavLink([personMarker._latlng.lat, personMarker._latlng.lng], locations[bid].address) +
+            '" class="btn btn-primary navLink">Navigate with Google Maps</a>' +
+            '</strong><br><br>' + beerText, {
+                maxWidth: 400, 
+                minWidth: 250,
                 maxHeight:250,
                 autoPan: true, 
                 keepInView: true,
@@ -202,9 +206,17 @@ function getBreweries(styles, lat, lon, rad, pageNumber)
         console.log("page" + data.currentPage + " totalResults: " + data.totalResults + " length: " +data.data.length);
         for(var loc in data.data)
         {
+            var postal = data.data[loc].postalCode != null ? data.data[loc].postalCode + ' ' : ' ';
+            var region = data.data[loc].region != null ? data.data[loc].region + ' ' : ' ';
+            var address = data.data[loc].streetAddress + ' ' +
+                    data.data[loc].locality + ' ' + 
+                    region + 
+                    postal + 
+                    data.data[loc].countryIsoCode;
             locations[data.data[loc].breweryId] = { 
                 lat: data.data[loc].latitude, 
                 lon: data.data[loc].longitude,
+                address: address,
                 name: data.data[loc].brewery.name,
                 type: data.data[loc].locationType,
                 yearOpened: data.data[loc].yearOpened == null ? 'uknown' : data.data[loc].yearOpened ,

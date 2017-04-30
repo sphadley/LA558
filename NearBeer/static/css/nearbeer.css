@@ -6,7 +6,9 @@ body{
 #header {
     min-height: 12.5em;
     padding-left: 2.0em;
-
+    padding-bottom: 2.0em;
+    border-bottom-color: black;
+    border-bottom-width: 5px;
 }
 
 #header h1 {
@@ -20,9 +22,9 @@ body{
 }
 
 #logo {
-    height: 4.688em; 
+    height: 6em; 
     width: auto;
-    margin-bottom: 0.938px;
+    margin-bottom: 1em;
     margin-top: 0.938em;
 }
 #locButton {
@@ -163,6 +165,22 @@ body{
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.navLink:link {
+    color: white;
+}
+
+.navLink:visited {
+    color: white;
+}
+
+.navLink:hover {
+    color: white;
+}
+
+.navLink:active {
+    color: white;
 }
 
 
