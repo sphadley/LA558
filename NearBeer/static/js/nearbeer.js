@@ -208,8 +208,9 @@ function getBreweries(styles, lat, lon, rad, pageNumber)
         {
             var postal = data.data[loc].postalCode != null ? data.data[loc].postalCode + ' ' : ' ';
             var region = data.data[loc].region != null ? data.data[loc].region + ' ' : ' ';
+            var locality = data.data[loc].locality != null ? data.data[loc].locality + ' ' : ' ';
             var address = data.data[loc].streetAddress + ' ' +
-                    data.data[loc].locality + ' ' + 
+                    locality + 
                     region + 
                     postal + 
                     data.data[loc].countryIsoCode;
