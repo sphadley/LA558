@@ -122,9 +122,6 @@ body{
     width: 300px;
 }
 
-#searchButton {
-    display: inline-block;
-}
 .smallImg {
     height:6.250em;
     width:auto;
@@ -188,11 +185,17 @@ body{
     color: white;
 }
 
+
 #addButton, #searchButton {
     padding: 1.5em;
     font-size: 16px;
+}
+
+#buttonDiv {
+    display: inline-block;
     margin-bottom: 20px;
     margin-top: 20px;
+    white-space: nowrap;
 }
 
 
